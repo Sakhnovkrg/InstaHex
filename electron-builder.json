@@ -1,0 +1,42 @@
+{
+    "appId": "com.instahex.app",
+    "productName": "InstaHex",
+    "icon": "src/main/static/icon.ico",
+    "directories": {
+        "output": "dist"
+    },
+
+    "nsis": {
+        "oneClick": false,
+        "perMachine": false,
+        "allowToChangeInstallationDirectory": true,
+        "shortcutName": "InstaHex"
+    },
+    "win": {
+        "target": "nsis",
+        "icon": "src/main/static/icon.ico"
+    },
+    "linux":  {
+        "target": ["snap"]
+    },
+    "files": [
+        {
+            "from": "build/main",
+            "to": "main",
+            "filter": ["**/*"]
+        },
+        {
+            "from": "build/renderer",
+            "to": "renderer",
+            "filter": ["**/*"]
+        },
+        {
+            "from": "src/main/static",
+            "to": "static",
+            "filter": ["**/*"]
+        },
+	"!build",
+	"!dist",
+	"!scripts"
+    ]
+}
