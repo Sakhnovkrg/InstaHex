@@ -25,7 +25,7 @@ export function useColorPicker(config: Partial<ColorPickerConfig> = {}) {
   const mouseY = ref(0)
   const currentColor = ref('#000000')
   const isReady = ref(false)
-  const dpr = ref(1)
+  const scaleFactor = ref(1)
 
   let ctx: CanvasRenderingContext2D | null = null
 
@@ -51,7 +51,8 @@ export function useColorPicker(config: Partial<ColorPickerConfig> = {}) {
     return '#' + [r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')
   }
 
-  function handleScreenshot(data: string) {
+  function handleScreenshot(data: string, scale: number) {
+    scaleFactor.value = scale
     const screenshotImage = new Image()
     screenshotImage.onload = () => {
       if (canvas.value) {
@@ -74,8 +75,8 @@ export function useColorPicker(config: Partial<ColorPickerConfig> = {}) {
     const magCtx = magnifierCanvas.value.getContext('2d')
     if (!magCtx) return
 
-    const imgX = Math.floor(mouseX.value * dpr.value)
-    const imgY = Math.floor(mouseY.value * dpr.value)
+    const imgX = Math.floor(mouseX.value * scaleFactor.value)
+    const imgY = Math.floor(mouseY.value * scaleFactor.value)
     const halfPixels = Math.floor(pixelCount / 2)
 
     magCtx.clearRect(0, 0, cfg.magnifierSize, cfg.magnifierSize)
@@ -142,7 +143,6 @@ export function useColorPicker(config: Partial<ColorPickerConfig> = {}) {
   }
 
   onMounted(() => {
-    dpr.value = window.devicePixelRatio || 1
     window.electronAPI.onScreenshot(handleScreenshot)
     document.addEventListener('keydown', handleKeydown)
   })

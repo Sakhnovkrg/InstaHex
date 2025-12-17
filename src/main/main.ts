@@ -64,11 +64,16 @@ function updateTrayMenu() {
 async function startColorPicker() {
   const primaryDisplay = screen.getPrimaryDisplay()
   const { width, height } = primaryDisplay.size
+  const scaleFactor = primaryDisplay.scaleFactor
+
+  // Use physical pixels for screenshot to handle DPI scaling
+  const physicalWidth = Math.floor(width * scaleFactor)
+  const physicalHeight = Math.floor(height * scaleFactor)
 
   // Capture screenshot
   const sources = await desktopCapturer.getSources({
     types: ['screen'],
-    thumbnailSize: { width, height },
+    thumbnailSize: { width: physicalWidth, height: physicalHeight },
   })
 
   const primarySource = sources[0]
@@ -101,7 +106,7 @@ async function startColorPicker() {
   }
 
   pickerWindow.webContents.once('did-finish-load', () => {
-    pickerWindow?.webContents.send('screenshot', screenshot)
+    pickerWindow?.webContents.send('screenshot', screenshot, scaleFactor)
   })
 
   pickerWindow.on('closed', () => {

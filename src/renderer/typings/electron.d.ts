@@ -3,7 +3,7 @@
  */
 export default interface ElectronApi {
   sendMessage: (message: string) => void
-  onScreenshot: (callback: (screenshot: string) => void) => void
+  onScreenshot: (callback: (screenshot: string, scaleFactor: number) => void) => void
   pickColor: (color: string) => void
   closePicker: () => void
   openExternal: (url: string) => void

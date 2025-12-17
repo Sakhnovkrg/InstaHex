@@ -1,6 +1,6 @@
 {
   "name": "instahex",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple color picker for grabbing colors from screen",
   "main": "main/main.js",
   "scripts": {

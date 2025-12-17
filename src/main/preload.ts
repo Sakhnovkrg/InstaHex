@@ -2,8 +2,8 @@ import { contextBridge, ipcRenderer, shell } from 'electron'
 
 contextBridge.exposeInMainWorld('electronAPI', {
   sendMessage: (message: string) => ipcRenderer.send('message', message),
-  onScreenshot: (callback: (screenshot: string) => void) => {
-    ipcRenderer.on('screenshot', (_event, screenshot) => callback(screenshot))
+  onScreenshot: (callback: (screenshot: string, scaleFactor: number) => void) => {
+    ipcRenderer.on('screenshot', (_event, screenshot, scaleFactor) => callback(screenshot, scaleFactor))
   },
   pickColor: (color: string) => ipcRenderer.send('pick-color', color),
   closePicker: () => ipcRenderer.send('close-picker'),
