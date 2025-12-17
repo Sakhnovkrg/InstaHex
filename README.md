@@ -2,6 +2,8 @@
 
 Simple color picker for grabbing colors from screen.
 
+[![Download for Windows](https://img.shields.io/badge/Download-Windows-blue?style=for-the-badge&logo=windows)](https://github.com/Sakhnovkrg/InstaHex/releases/latest)
+
 ![Demo](docs/licecap.gif)
 
 ## Features
