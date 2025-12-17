@@ -10,7 +10,8 @@
         "oneClick": false,
         "perMachine": false,
         "allowToChangeInstallationDirectory": true,
-        "shortcutName": "InstaHex"
+        "shortcutName": "InstaHex",
+        "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "win": {
         "target": "nsis",
