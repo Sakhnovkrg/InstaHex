@@ -16,7 +16,8 @@ let pickerWindow: BrowserWindow | null = null
 let aboutWindow: BrowserWindow | null = null
 
 function createTray() {
-  const iconPath = join(__dirname, 'static', 'icon.ico')
+  const iconName = process.platform === 'win32' ? 'icon.ico' : 'icon.png'
+  const iconPath = join(__dirname, 'static', iconName)
   tray = new Tray(iconPath)
   tray.setToolTip('InstaHex')
 
@@ -160,9 +161,10 @@ function openAboutWindow() {
     return
   }
 
+  const aboutIconName = process.platform === 'win32' ? 'icon.ico' : 'icon.png'
   aboutWindow = new BrowserWindow({
     title: 'About',
-    icon: join(__dirname, 'static', 'icon.ico'),
+    icon: join(__dirname, 'static', aboutIconName),
     width: 300,
     height: 330,
     resizable: false,

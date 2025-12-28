@@ -15,7 +15,7 @@ function closeWindow() {
     <img :src="iconUrl" alt="InstaHex" class="logo" />
 
     <h1 class="title">InstaHex</h1>
-    <p class="version">v0.1.1</p>
+    <p class="version">v0.1.2</p>
 
     <p class="description">
       Simple color picker for grabbing colors from screen

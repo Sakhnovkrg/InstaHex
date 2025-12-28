@@ -17,8 +17,11 @@
         "target": "nsis",
         "icon": "src/main/static/icon.ico"
     },
-    "linux":  {
-        "target": ["snap"]
+    "linux": {
+        "target": ["AppImage", "deb"],
+        "icon": "src/main/static/icon.png",
+        "category": "Utility",
+        "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
     "files": [
         {

@@ -1,6 +1,6 @@
 {
   "name": "instahex",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple color picker for grabbing colors from screen",
   "main": "main/main.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "repository": "https://github.com/Sakhnovkrg/InstaHex",
   "author": {
     "name": "Alexandr Sakhnov",
+    "email": "sakhnov.krg@gmail.com",
     "url": "https://github.com/Sakhnovkrg"
   },
   "devDependencies": {
