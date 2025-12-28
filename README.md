@@ -2,7 +2,8 @@
 
 Simple color picker for grabbing colors from screen.
 
-[![Download for Windows](https://img.shields.io/badge/Download-Windows-blue?style=for-the-badge&logo=windows)](https://github.com/Sakhnovkrg/InstaHex/releases/latest)
+[![Download for Windows](https://img.shields.io/badge/Download-Windows-0078D6?style=for-the-badge)](https://github.com/Sakhnovkrg/InstaHex/releases/latest)
+[![Download for Linux](https://img.shields.io/badge/Download-Linux-orange?style=for-the-badge&logo=linux&logoColor=white)](https://github.com/Sakhnovkrg/InstaHex/releases/latest)
 
 ![Demo](docs/licecap.gif)
 
@@ -25,7 +26,8 @@ Simple color picker for grabbing colors from screen.
 
 ```bash
 npm install
-npm run build:win
+npm run build:win    # Windows
+npm run build:linux  # Linux
 ```
 
 ## Development

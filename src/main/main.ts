@@ -10,10 +10,63 @@ import {
   shell,
 } from 'electron'
 import { join } from 'path'
+import { existsSync, writeFileSync, unlinkSync, mkdirSync } from 'fs'
+import { homedir } from 'os'
 
 let tray: Tray | null = null
 let pickerWindow: BrowserWindow | null = null
 let aboutWindow: BrowserWindow | null = null
+
+// Linux autostart helpers
+function getLinuxAutostartPath(): string {
+  return join(homedir(), '.config', 'autostart', 'instahex.desktop')
+}
+
+function getLinuxAutoLaunch(): boolean {
+  if (process.platform !== 'linux') return false
+  return existsSync(getLinuxAutostartPath())
+}
+
+function setLinuxAutoLaunch(enable: boolean): void {
+  if (process.platform !== 'linux') return
+
+  const autostartDir = join(homedir(), '.config', 'autostart')
+  const desktopPath = getLinuxAutostartPath()
+
+  if (enable) {
+    if (!existsSync(autostartDir)) {
+      mkdirSync(autostartDir, { recursive: true })
+    }
+    const desktopEntry = `[Desktop Entry]
+Type=Application
+Name=InstaHex
+Exec=${process.execPath}
+Icon=instahex
+Terminal=false
+Categories=Utility;
+`
+    writeFileSync(desktopPath, desktopEntry)
+  } else {
+    if (existsSync(desktopPath)) {
+      unlinkSync(desktopPath)
+    }
+  }
+}
+
+function isAutoLaunchEnabled(): boolean {
+  if (process.platform === 'linux') {
+    return getLinuxAutoLaunch()
+  }
+  return app.getLoginItemSettings().openAtLogin
+}
+
+function setAutoLaunch(enable: boolean): void {
+  if (process.platform === 'linux') {
+    setLinuxAutoLaunch(enable)
+  } else {
+    app.setLoginItemSettings({ openAtLogin: enable })
+  }
+}
 
 function createTray() {
   const iconName = process.platform === 'win32' ? 'icon.ico' : 'icon.png'
@@ -29,7 +82,7 @@ function createTray() {
 }
 
 function updateTrayMenu() {
-  const isAutoLaunch = app.getLoginItemSettings().openAtLogin
+  const isAutoLaunch = isAutoLaunchEnabled()
 
   const contextMenu = Menu.buildFromTemplate([
     {
@@ -37,9 +90,7 @@ function updateTrayMenu() {
       type: 'checkbox',
       checked: isAutoLaunch,
       click: () => {
-        app.setLoginItemSettings({
-          openAtLogin: !isAutoLaunch,
-        })
+        setAutoLaunch(!isAutoLaunch)
         updateTrayMenu()
       },
     },
