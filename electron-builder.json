@@ -23,6 +23,12 @@
         "category": "Utility",
         "artifactName": "${productName}-${version}-${arch}.${ext}"
     },
+    "mac": {
+        "target": ["dmg", "zip"],
+        "icon": "src/main/static/icon.png",
+        "category": "public.app-category.utilities",
+        "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
     "files": [
         {
             "from": "build/main",
